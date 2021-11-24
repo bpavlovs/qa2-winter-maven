@@ -41,12 +41,13 @@ public class DelfiTests {
         browser.switchTo().defaultContent();
 
         List<WebElement> headlines = browser.findElements(HEADLINE_TITLE);
-        WebElement headlineTitle = headlines.get(10);
+        WebElement headlineTitle = headlines.get(5);
         String headlineTitle2 = headlineTitle.getText().trim();
         headlineTitle.click();
 
         WebElement articleTitle = browser.findElement(ARTICLE_TITLE);
         String articleTitle2 = articleTitle.getText().trim();
+
         assert articleTitle2.equals(headlineTitle2);
 
         wait.until(ExpectedConditions.elementToBeClickable(OPEN_COMMENTS_BTN));
@@ -68,7 +69,9 @@ public class DelfiTests {
         System.out.println("");
 
         for (WebElement headline : headlines) {
-            System.out.println(headline.getText());
+            if(!headline.getText().isEmpty()){
+                System.out.println(headline.getText());
+            }
         }
     }
 
