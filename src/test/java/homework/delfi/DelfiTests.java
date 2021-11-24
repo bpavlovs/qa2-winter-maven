@@ -1,6 +1,7 @@
 package homework.delfi;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -48,7 +49,8 @@ public class DelfiTests {
         WebElement articleTitle = browser.findElement(ARTICLE_TITLE);
         String articleTitle2 = articleTitle.getText().trim();
 
-        assert articleTitle2.equals(headlineTitle2);
+//        assert articleTitle2.equals(headlineTitle2);
+        Assertions.assertEquals(articleTitle2, headlineTitle2, "titles are not equal");
 
         wait.until(ExpectedConditions.elementToBeClickable(OPEN_COMMENTS_BTN));
         browser.findElement(OPEN_COMMENTS_BTN).click();
@@ -61,7 +63,8 @@ public class DelfiTests {
         System.out.println(headlineTitle2);
         System.out.println(commentsTitle2);
 
-        assert commentsTitle2.equals(headlineTitle2);
+//        assert commentsTitle2.equals(headlineTitle2);
+        Assertions.assertEquals(articleTitle2, commentsTitle2, "titles are not equal");
 
         browser.get(HOME_PAGE_URL);
         headlines = browser.findElements(HEADLINE_TITLE);
@@ -80,3 +83,9 @@ public class DelfiTests {
         browser.close();
     }
 }
+
+// zahodim na TVNET, p[erehodim na ljubok tajtl, konkretnaja statja po schetu,
+// proverjaete chto zagolovki spovpadajut, proveritj chto test rabotaet na statjah s komentarijami,
+// pomimo zagalovka proveritj chto kolichestvo komentariev sovpadaet
+// realizovatj proverku kolichestva komentariev ne strokami a v intah
+// ispoljzuja wait i expected conditions propustitj reklamu bez ispoljzovanija clicka
