@@ -49,7 +49,6 @@ public class DelfiTests {
         WebElement articleTitle = browser.findElement(ARTICLE_TITLE);
         String articleTitle2 = articleTitle.getText().trim();
 
-//        assert articleTitle2.equals(headlineTitle2);
         Assertions.assertEquals(articleTitle2, headlineTitle2, "titles are not equal");
 
         wait.until(ExpectedConditions.elementToBeClickable(OPEN_COMMENTS_BTN));
@@ -59,11 +58,6 @@ public class DelfiTests {
         WebElement commentsTitle = browser.findElement(COMMENTS_TITLE);
         String commentsTitle2 = commentsTitle.getText().trim();
 
-        System.out.println(articleTitle2);
-        System.out.println(headlineTitle2);
-        System.out.println(commentsTitle2);
-
-//        assert commentsTitle2.equals(headlineTitle2);
         Assertions.assertEquals(articleTitle2, commentsTitle2, "titles are not equal");
 
         browser.get(HOME_PAGE_URL);
@@ -83,9 +77,3 @@ public class DelfiTests {
         browser.close();
     }
 }
-
-// zahodim na TVNET, p[erehodim na ljubok tajtl, konkretnaja statja po schetu,
-// proverjaete chto zagolovki spovpadajut, proveritj chto test rabotaet na statjah s komentarijami,
-// pomimo zagalovka proveritj chto kolichestvo komentariev sovpadaet
-// realizovatj proverku kolichestva komentariev ne strokami a v intah
-// ispoljzuja wait i expected conditions propustitj reklamu bez ispoljzovanija clicka
