@@ -73,10 +73,3 @@ public class TvNetTests {
 //        browser.close();
 //    }
 }
-
-//DELFI - go, close cookies, save 1st title as variable,
-// go there (click), on the open page get title,
-// 1st sout both titles to console; 2nd compare the titles;
-// 3rd go to comments page and check the title again
-
-// Bonus - go to DELFI, to console all headlines
