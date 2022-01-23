@@ -1,8 +1,8 @@
-package homework;
+package homework.fuelcalculator;
 
 import org.junit.jupiter.api.Test;
 
-public class HomeworkOne {
+public class FuelCalculator {
 
     //rashod avtomobila na 100 kilometrov
     //metod - 2 parametra, 1 rashod na 100, vtoroj kolvo kilometrov

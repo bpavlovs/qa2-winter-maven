@@ -34,9 +34,10 @@ public class TvNetTests {
         browser.findElement(ACCEPT_COOKIES_BTN).click();
 
         List<WebElement> headlines = browser.findElements(HEADLINE_TITLE);
-        WebElement headlineTitle = headlines.get(8);
+        WebElement headlineTitle = headlines.get(5);
         String headlineTitle1 = headlineTitle.getText();
-        int headlineCommentCount = Integer.parseInt(headlineTitle1.substring((headlineTitle1.indexOf("(") + 1), headlineTitle1.indexOf(")")));
+        headlineTitle1 = headlineTitle1.substring(1, headlineTitle1.length() - 1);
+        int headlineCommentCount = Integer.parseInt(headlineTitle1);
         headlineTitle1 = headlineTitle1.substring(0, headlineTitle1.indexOf(" ("));
 
         wait.until(ExpectedConditions.elementToBeClickable(headlineTitle));
