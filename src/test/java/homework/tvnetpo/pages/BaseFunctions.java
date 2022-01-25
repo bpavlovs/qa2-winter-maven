@@ -6,20 +6,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 
 public class BaseFunctions {
 
     private WebDriver browser;
-
-//    WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(10));
+    private WebDriverWait wait;
 
     public BaseFunctions() {
         System.setProperty("webdriver.chrome.driver", "c://chromedriver.exe");
         browser = new ChromeDriver();
         browser.manage().window().maximize();
+        wait = new WebDriverWait(browser, Duration.ofSeconds(10));
     }
 
     public void openUrl(String url) {
@@ -30,7 +29,7 @@ public class BaseFunctions {
     }
 
     public void click(By locator) {
-        WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(10));
+//        WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
@@ -46,9 +45,10 @@ public class BaseFunctions {
         return browser.findElement(locator);
     }
 
-    //should we declare wait outside?
+    //should we declare "wait" outside?
     public WebElement findElement(WebElement parentElement, By childElement) {
-        WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(10));
+//        WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(10));
+
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(childElement));
         return parentElement.findElement(childElement);
     }

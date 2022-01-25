@@ -32,7 +32,7 @@ public class ArticlePage {
     }
 
     public void openCommentsPage() {
-        baseFunctions.findElement(COMMENTS_PAGE_ICON).click();
+        baseFunctions.click(COMMENTS_PAGE_ICON);
     }
 
 }

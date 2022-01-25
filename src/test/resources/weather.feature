@@ -34,8 +34,7 @@ Feature: Weather Forecast
       | speed | 3.6 |
       | deg   | 160 |
 
-    And clouds are:
-      | all | 40 |
+    And clouds are "all 40"
 
     And dt is 1485790200
 

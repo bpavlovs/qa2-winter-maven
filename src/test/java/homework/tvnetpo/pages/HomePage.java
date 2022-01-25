@@ -4,8 +4,6 @@ import homework.tvnetpo.model.Article;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import java.util.Arrays;
 import java.util.List;
 
 public class HomePage {
@@ -26,15 +24,14 @@ public class HomePage {
     }
 
     public Article getArticleById(int articleNumber) {
-        return mapArticle(locateArticle(articleNumber));
+        return mapArticle(getArticle(articleNumber));
     }
 
     public void openArticlePage(int articleNumber) {
-        locateArticle(articleNumber).click();
-
+        getArticle(articleNumber).click();
     }
 
-    public WebElement locateArticle(int articleNumber) {
+    public WebElement getArticle(int articleNumber) {
         List<WebElement> articleElements = baseFunctions.findElements(ARTICLE);
         Assertions.assertFalse(articleElements.isEmpty(), "There are no articles!");
         return articleElements.get(articleNumber - 1);
@@ -56,15 +53,13 @@ public class HomePage {
         WebElement articleTitle = baseFunctions.findElement(webElement, ARTICLE_TITLE);
 
         if (article.getCommentCount() != 0) {
-            String[] splitTitle = articleTitle.getText().split(" ");
-            splitTitle = Arrays.copyOf(splitTitle, splitTitle.length - 1);
-            article.setTitle(String.join(" ", splitTitle));
+            article.setTitle(articleTitle.getText()
+                    .replace(" " + commentCounters.get(0).getText(), ""));
+
         } else {
             article.setTitle(articleTitle.getText());
         }
 
         return article;
     }
-
-
 }

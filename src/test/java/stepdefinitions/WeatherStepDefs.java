@@ -58,8 +58,8 @@ public class WeatherStepDefs {
 
     }
 
-    @And("clouds are:")
-    public void check_clouds(Map<String, String> cloudsInfo) {
+    @And("clouds are {string}")
+    public void check_clouds(String cloudInfo) {
 
     }
 

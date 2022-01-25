@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class ArticleTests {
 
     private final String HOME_PAGE_URL = "tvnet.lv";
-    private final int ARTICLE_NUMBER = 14;
+    private final int ARTICLE_NUMBER = 9;
 
     @Test
     public void titleAndCommentCountCheck() {
