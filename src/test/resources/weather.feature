@@ -1,13 +1,9 @@
 Feature: Weather Forecast
 
   Scenario: Weather for specific city
-    Given city name is "Cairns"
-    And country name is "AU"
+    Given city id is 524901
 
     When we are requesting weather data
-
-#    Then lon is 145.77
-#    And lat is -16.92
 
     Then coordinates are:
       | lon | 145.77 |
@@ -15,7 +11,7 @@ Feature: Weather Forecast
 
     And weather info is:
       | id          | 802              |
-      | main        | clouds           |
+      | main        | Clouds           |
       | description | scattered clouds |
       | icon        | 03n              |
 
@@ -34,7 +30,7 @@ Feature: Weather Forecast
       | speed | 3.6 |
       | deg   | 160 |
 
-    And clouds are "all 40"
+    And cloud's all is 40
 
     And dt is 1485790200
 

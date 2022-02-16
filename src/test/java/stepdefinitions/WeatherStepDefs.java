@@ -1,94 +1,110 @@
 package stepdefinitions;
 
-import io.cucumber.java.en.And;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import requesters.WeatherRequester;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import model.Weather;
+import model.WeatherResponse;
 
 import java.util.Map;
 
+import static java.lang.Double.*;
+import static java.lang.Integer.*;
+import static java.lang.Long.parseLong;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WeatherStepDefs {
+    private long cityId;
+    private WeatherResponse response;
 
-    private String countryName;
-    private String cityName;
-
-    @Given("city name is {string}")
-    public void city_name(String cityName) {
-        this.cityName = cityName;
-    }
-
-    @And("country name is {string}")
-    public void country_name(String countryName) {
-        this.countryName = countryName;
+    @Given("city id is {long}")
+    public void city_name(long cityId) {
+        this.cityId = cityId;
     }
 
     @When("we are requesting weather data")
-    public void get_weather_data(String cityName, String countryName) {
-
+    public void request_weather() throws JsonProcessingException {
+        WeatherRequester request = new WeatherRequester();
+        response = request.requestWeather(cityId);
     }
 
     @Then("coordinates are:")
-    public void check_coordinates(Map<String, String> generalInfo) {
-
+    public void check_coordinates(Map<String, Double> params) {
+        assertEquals(params.get("lon"), response.getCoord().getLon(), "Wrong lon!");
+        assertEquals(params.get("lat"), response.getCoord().getLat(), "Wrong lat!");
     }
 
-    @And("weather info is:")
-    public void check_weather_info(Map<String, String> weatherInfo) {
-
+    @Then("weather info is:")
+    public void check_weather_info(Map<String, String> params) {
+        Weather weather = response.getWeathers().get(0);
+        assertEquals(parseLong(params.get("id")), weather.getId(), "Wrong weather id!");
+        assertEquals(params.get("main"), weather.getMain(), "Wrong weather main!");
+        assertEquals(params.get("description"), weather.getDescription(), "Wrong weather description!");
+        assertEquals(params.get("icon"), weather.getIcon(), "Wrong weather icon!");
     }
 
-    @And("base is {string}")
+    @Then("base is {string}")
     public void check_base(String base) {
-
+        assertEquals(base, response.getBase(), "Wrong base!");
     }
 
-    @And("main info is:")
-    public void check_main_info(Map<String, String> mainInfo) {
-
+    @Then("main info is:")
+    public void check_main_info(Map<String, String> params) {
+        assertEquals(parseDouble(params.get("temp")), response.getMain().getTemp(), "Wrong temp!");
+        assertEquals(parseInt(params.get("pressure")), response.getMain().getPressure(), "Wrong pressure!");
+        assertEquals(parseInt(params.get("humidity")), response.getMain().getHumidity(), "Wrong humidity!");
+        assertEquals(parseDouble(params.get("temp_min")), response.getMain().getTempMin(), "Wrong min temp!");
+        assertEquals(parseDouble(params.get("temp_max")), response.getMain().getTempMax(), "Wrong max temp!");
     }
 
-    @And("visibility is {int}")
-    public void check_visibility(int visibility) {
-
+    @Then("visibility is {int}")
+    public void check_visibility(long visibility) {
+        assertEquals(visibility, response.getVisibility(), "Wrong visibility!");
     }
 
-    @And("wind is:")
+    @Then("wind is:")
     public void check_wind(Map<String, String> windInfo) {
+        assertEquals(parseDouble(windInfo.get("speed")), response.getWind().getSpeed(), "Wrong wind speed!");
+        assertEquals(parseLong(windInfo.get("deg")), response.getWind().getDeg(), "Wrong wind deg!");
+    }
+
+    @Then("cloud's all is {long}")
+    public void check_clouds(long cloudInfo) {
+        assertEquals(cloudInfo, response.getClouds().getAll(), "Wrong cloud's all!");
 
     }
 
-    @And("clouds are {string}")
-    public void check_clouds(String cloudInfo) {
-
+    @Then("dt is {long}")
+    public void check_dt(long dt) {
+        assertEquals(dt, response.getDt(), "Wrong dt!");
     }
 
-    @And("dt is {int}")
-    public void check_dt(int dt) {
-
-    }
-
-    @And("sys is:")
+    @Then("sys is:")
     public void check_sys(Map<String, String> sysInfo) {
-
+        assertEquals(parseLong(sysInfo.get("type")), response.getSys().getType(), "Wrong type!");
+        assertEquals(parseLong(sysInfo.get("id")), response.getSys().getId(), "Wrong id!");
+        assertEquals(parseDouble(sysInfo.get("message")), response.getSys().getMessage(), "Wrong message!");
+        assertEquals(sysInfo.get("country"), response.getSys().getCountry(), "Wrong country!");
+        assertEquals(parseLong(sysInfo.get("sunrise")), response.getSys().getSunrise(), "Wrong sunrise!");
+        assertEquals(parseLong(sysInfo.get("sunset")), response.getSys().getSunset(), "Wrong sunset!");
     }
 
-    @And("id is {int}")
-    public void check_id(int id){
-
+    @Then("id is {long}")
+    public void check_id(long id) {
+        assertEquals(id, response.getId(), "Wrong ID!");
     }
 
-    @And("name is {string}")
-    public void check_name(String name){
-
+    @Then("name is {string}")
+    public void check_name(String name) {
+        assertEquals(name, response.getName(), "Wrong name!");
     }
 
-    @And("cod is {int}")
-    public void check_cod(int cod){
-
+    @Then("cod is {long}")
+    public void check_cod(long cod) {
+        assertEquals(cod, response.getCod(), "Wrong cod!");
     }
-
-
 }
 
 

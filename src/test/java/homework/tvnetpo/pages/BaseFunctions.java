@@ -1,11 +1,14 @@
 package homework.tvnetpo.pages;
 
+import io.cucumber.java.eo.Se;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -29,7 +32,6 @@ public class BaseFunctions {
     }
 
     public void click(By locator) {
-//        WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
@@ -45,13 +47,27 @@ public class BaseFunctions {
         return browser.findElement(locator);
     }
 
-    //should we declare "wait" outside?
-    public WebElement findElement(WebElement parentElement, By childElement) {
-//        WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(10));
 
+    public WebElement findElement(WebElement parentElement, By childElement) {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(childElement));
         return parentElement.findElement(childElement);
     }
 
+    //--------------------BE + FE Testing Additional--------------------------//
 
+    public void select(By locator, String value) {
+        Select select = new Select(findElement(locator));
+        select.selectByValue(value);
+    }
+
+    public void selectByVisibleText(By locator, String text) {
+        Select select = new Select(findElement(locator));
+        select.selectByVisibleText(text);
+    }
+
+    public void type(By locator, String text) {
+        WebElement inputField = findElement(locator);
+        inputField.clear();
+        inputField.sendKeys(text);
+    }
 }

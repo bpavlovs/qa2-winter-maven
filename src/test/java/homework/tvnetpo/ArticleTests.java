@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class ArticleTests {
 
     private final String HOME_PAGE_URL = "tvnet.lv";
-    private final int ARTICLE_NUMBER = 9;
+    private final int ARTICLE_NUMBER = 4;
 
     @Test
     public void titleAndCommentCountCheck() {
@@ -40,5 +40,4 @@ public class ArticleTests {
         Assertions.assertEquals(article.getTitle(), commentsPage.getTitle(), "Titles on home page and comments page aren't the same!");
 
     }
-
 }
