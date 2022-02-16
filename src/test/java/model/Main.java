@@ -3,7 +3,6 @@ package model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Main {
-
     private double temp;
     private long pressure;
     private long humidity;

@@ -20,7 +20,6 @@ public class WeatherRequester {
         //We are using Jackson to get objects with data as model from JSON (to convert / map)
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(jsonToParse, WeatherResponse.class);
-
     }
 }
 

@@ -1,7 +1,6 @@
 package model;
 
 public class Sys {
-
     private long type;
     private long id;
     private double message;
