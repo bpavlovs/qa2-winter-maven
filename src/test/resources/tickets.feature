@@ -12,12 +12,32 @@ Feature: Ticket Booking System
       | bag_count   | 1          |
       | flight_date | 14-05-2018 |
 
-    And home page opened
+    And home page open
 
-    When we are selecting airports
+    When selecting airports
 
     And pressing GoGoGo button
 
     Then selected airports appear on Flight Details Page
 
-    When we are filing in flight details form
+    When filing in flight details form
+
+    And pressing Get Price button
+
+    And pressing Book! button
+
+    Given seat id is 4
+
+    When pressing seat number button
+
+    Then selected seat appears on the Flight Details Page
+
+    When pressing final Book! button
+
+    Given booking confirmation page open
+
+    And confirmation message is "Thank You for flying with us!"
+
+    Then flight confirmation message appears
+
+

@@ -44,6 +44,7 @@ public class BaseFunctions {
     }
 
     public WebElement findElement(By locator) {
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
         return browser.findElement(locator);
     }
 

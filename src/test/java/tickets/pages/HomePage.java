@@ -1,4 +1,4 @@
-package tickets;
+package tickets.pages;
 
 import homework.tvnetpo.pages.BaseFunctions;
 import org.openqa.selenium.By;
