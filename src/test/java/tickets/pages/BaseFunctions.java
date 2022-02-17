@@ -1,6 +1,5 @@
-package homework.tvnetpo.pages;
+package tickets.pages;
 
-import io.cucumber.java.eo.Se;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -52,5 +51,21 @@ public class BaseFunctions {
     public WebElement findElement(WebElement parentElement, By childElement) {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(childElement));
         return parentElement.findElement(childElement);
+    }
+
+    public void select(By locator, String value) {
+        Select select = new Select(findElement(locator));
+        select.selectByValue(value);
+    }
+
+    public void selectByVisibleText(By locator, String text) {
+        Select select = new Select(findElement(locator));
+        select.selectByVisibleText(text);
+    }
+
+    public void type(By locator, String text) {
+        WebElement inputField = findElement(locator);
+        inputField.clear();
+        inputField.sendKeys(text);
     }
 }

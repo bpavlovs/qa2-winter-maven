@@ -1,6 +1,6 @@
 package tickets.pages;
 
-import homework.tvnetpo.pages.BaseFunctions;
+import tickets.pages.BaseFunctions;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
