@@ -99,6 +99,7 @@ public class TicketsStepDefs {
     }
 
     //TODO: Can we do this with a getter? or do we need to use a step in .feature and pass value into variable?
+    //TODO: Side question, will we work with "Actions" class?
     @Then("flight confirmation message appears")
     public void check_confirmation_message() {
         Assertions.assertEquals(flightConfirmationPage.getEXPECTED_MESSAGE(),
