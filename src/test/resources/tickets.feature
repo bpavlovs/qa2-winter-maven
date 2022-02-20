@@ -36,6 +36,7 @@ Feature: Ticket Booking System
 
     Given booking confirmation page open
 
+    #confirmation message appears + move msg to pages
     And confirmation message is "Thank You for flying with us!"
 
     Then flight confirmation message appears
