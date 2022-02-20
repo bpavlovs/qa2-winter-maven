@@ -3,7 +3,6 @@ package homework.ticketbooking.pages;
 import org.openqa.selenium.By;
 
 public class FlightConfirmationPage {
-
     private final By CONFIRMATION_MESSAGE = By.xpath(".//div[@class = 'finalTxt']");
     private final String EXPECTED_MESSAGE = "Thank You for flying with us!";
 

@@ -12,7 +12,6 @@ import java.time.Duration;
 import java.util.List;
 
 public class BaseFunctions {
-
     private WebDriver browser;
     private WebDriverWait wait;
 

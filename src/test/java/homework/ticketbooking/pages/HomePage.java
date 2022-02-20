@@ -3,7 +3,6 @@ package homework.ticketbooking.pages;
 import org.openqa.selenium.By;
 
 public class HomePage {
-
     private final By DEPARTURE_ID = By.id("afrom");
     private final By DESTINATION_ID = By.id("bfrom");
     private final By GO_BUTTON = By.xpath(".//span[@class = 'gogogo']");

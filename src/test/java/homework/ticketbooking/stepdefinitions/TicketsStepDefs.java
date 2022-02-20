@@ -15,12 +15,10 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TicketsStepDefs {
-
     private String departure;
     private String destination;
     private int seatId;
     private Map<String, String> personalInfo;
-//    private String confirmationMessage;
 
     private BaseFunctions baseFunctions = new BaseFunctions();
     private HomePage homePage;
@@ -100,7 +98,7 @@ public class TicketsStepDefs {
         assertEquals(seatId, flightDetailsPage.getSelectedSeat(), "Selected seats di bit natch!");
     }
 
-    //Can we do this with a getter? or do we need to use a step in .feature and pass value into variable?
+    //TODO: Can we do this with a getter? or do we need to use a step in .feature and pass value into variable?
     @Then("flight confirmation message appears")
     public void check_confirmation_message() {
         Assertions.assertEquals(flightConfirmationPage.getEXPECTED_MESSAGE(),
