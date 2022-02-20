@@ -20,8 +20,8 @@ public class FlightDetailsPage {
     private final By GET_PRICE_BUTTON = By.xpath(".//span[contains (@onclick, 'setLang')]");
     private final By BOOK_BUTTON = By.id("book2");
     private final By FINAL_BOOK_BUTTON = By.id("book3");
-    private final By FLIGHT_SEATS = By.xpath(".//div [@class = 'seat']");
-    private final By SELECTED_SEAT = By.xpath(".//div [@class = 'line']");
+    private final By FLIGHT_SEATS = By.xpath(".//div[@class = 'seat']");
+    private final By SELECTED_SEAT = By.xpath(".//div[@class = 'line']");
 
     private BaseFunctions baseFunctions;
 
@@ -40,6 +40,7 @@ public class FlightDetailsPage {
         return result;
     }
 
+    //TODO: Can we use "replace" here?
     public int getSelectedSeat() {
         String seatId = baseFunctions.findElement(SELECTED_SEAT).getText().replace("Your seat is: ", "");
         return Integer.parseInt(seatId);
@@ -67,10 +68,14 @@ public class FlightDetailsPage {
         baseFunctions.click(FINAL_BOOK_BUTTON);
     }
 
-    //TODO: aquire amount of actual seats and check against it + missing seats
+    //TODO: Corrected assertion logic; Does not work due to missed seats - was that the intention?
     public void pressSeatButton(int seatId) {
-        Assertions.assertTrue(seatId > 0 && seatId < 35, "Selected seat is out of 1 - 34 bounds");
         List<WebElement> seats = baseFunctions.findElements(FLIGHT_SEATS);
-        seats.get(seatId - 1).click();
+        WebElement seat = seats.get(seatId - 1);
+        Assertions.assertTrue(seats.contains(seat));
+        seat.click();
     }
+
+
+
 }

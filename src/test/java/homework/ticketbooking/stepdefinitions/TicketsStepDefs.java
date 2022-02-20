@@ -20,7 +20,7 @@ public class TicketsStepDefs {
     private String destination;
     private int seatId;
     private Map<String, String> personalInfo;
-    private String confirmationMessage;
+//    private String confirmationMessage;
 
     private BaseFunctions baseFunctions = new BaseFunctions();
     private HomePage homePage;
@@ -48,16 +48,6 @@ public class TicketsStepDefs {
     public void open_home_page() {
         baseFunctions.openUrl("http://qaguru.lv:8089/tickets/");
         homePage = new HomePage(baseFunctions);
-    }
-
-    @Given("booking confirmation page open")
-    public void open_confirmation_page() {
-
-    }
-
-    @Given("confirmation message is {string}")
-    public void set_confirmation_message(String message) {
-        confirmationMessage = message;
     }
 
     @When("selecting airports")
@@ -110,9 +100,10 @@ public class TicketsStepDefs {
         assertEquals(seatId, flightDetailsPage.getSelectedSeat(), "Selected seats di bit natch!");
     }
 
+    //Can we do this with a getter? or do we need to use a step in .feature and pass value into variable?
     @Then("flight confirmation message appears")
     public void check_confirmation_message() {
-        Assertions.assertEquals(confirmationMessage,
+        Assertions.assertEquals(flightConfirmationPage.getEXPECTED_MESSAGE(),
                 flightConfirmationPage.getConfirmationMessage(), "Confirmation messages do not match!");
     }
 }

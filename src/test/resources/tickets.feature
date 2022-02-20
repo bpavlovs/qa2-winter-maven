@@ -14,6 +14,8 @@ Feature: Ticket Booking System
 
     And home page open
 
+    And seat id is 16
+
     When selecting airports
 
     And pressing GoGoGo button
@@ -26,18 +28,11 @@ Feature: Ticket Booking System
 
     And pressing Book! button
 
-    Given seat id is 4
-
     When pressing seat number button
 
     Then selected seat appears on the Flight Details Page
 
     When pressing final Book! button
-
-    Given booking confirmation page open
-
-    #confirmation message appears + move msg to pages
-    And confirmation message is "Thank You for flying with us!"
 
     Then flight confirmation message appears
 
