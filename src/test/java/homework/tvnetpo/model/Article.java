@@ -28,7 +28,5 @@ public class Article {
         String commentsToParse = webElement.getText();
         commentsToParse = commentsToParse.substring(1, commentsToParse.length() - 1);
         this.commentCount = Integer.parseInt(commentsToParse);
-
-
     }
 }
