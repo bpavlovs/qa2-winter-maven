@@ -23,10 +23,6 @@ public class ArticlePage {
         return articleTitle.substring(0, articleTitle.length() - 1);
     }
 
-    public void closeAd(){
-        baseFunctions.click(AD_CLOSE_BUTTON);
-    }
-
     public int getCommentCount() {
         String commentCounter;
 

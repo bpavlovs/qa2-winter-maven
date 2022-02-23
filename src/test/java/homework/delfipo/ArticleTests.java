@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class ArticleTests {
 
     private final String HOME_PAGE_URL = "delfi.lv";
-    private final int ARTICLE_NUMBER = 9; //12
+    private final int ARTICLE_NUMBER = 12;
 
     @Test
     public void titleAndCommentCountCheck() {
@@ -24,26 +24,15 @@ public class ArticleTests {
         Article article = homePage.getArticleById(ARTICLE_NUMBER);
 
         homePage.openArticlePage(ARTICLE_NUMBER);
-
         ArticlePage articlePage = new ArticlePage(baseFunctions);
-
-        System.out.println(article.getCommentCount());
-        System.out.println(article.getTitle());
-
-        System.out.println(articlePage.getCommentCount());
-        System.out.println(articlePage.getArticleTitle());
 
         Assertions.assertEquals(article.getCommentCount(), articlePage.getCommentCount(), "Comment counts do not match!");
         Assertions.assertEquals(article.getTitle(), articlePage.getArticleTitle(), "Titles do not match!");
 
         articlePage.openCommentsPage();
-
         CommentsPage commentsPage = new CommentsPage(baseFunctions);
 
         Assertions.assertEquals(article.getTitle(), commentsPage.getArticleTitle(), "Titles do not match!");
         Assertions.assertEquals(article.getCommentCount(), commentsPage.getCommentCount(), "Comment counts do not match!");
-
-        System.out.println(commentsPage.getCommentCount());
-        System.out.println(commentsPage.getArticleTitle());
     }
 }
