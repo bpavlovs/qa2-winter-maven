@@ -1,13 +1,10 @@
 package homework.ticketbooking.stepdefinitions;
 
-import homework.ticketbooking.pages.BaseFunctions;
+import homework.ticketbooking.pages.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-import homework.ticketbooking.pages.FlightConfirmationPage;
-import homework.ticketbooking.pages.FlightDetailsPage;
-import homework.ticketbooking.pages.HomePage;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +21,6 @@ public class TicketsStepDefs {
     private HomePage homePage;
     private FlightDetailsPage flightDetailsPage;
     private FlightConfirmationPage flightConfirmationPage;
-
 
     @Given("airports {string} and {string}")
     public void set_airports(String departure, String destination) {
@@ -66,7 +62,7 @@ public class TicketsStepDefs {
 
     @When("pressing Get Price button")
     public void press_get_price_button() {
-        flightDetailsPage.pressGetPriceButton();
+        flightDetailsPage.submitForm();
     }
 
     @When("pressing Book! button")
@@ -93,16 +89,18 @@ public class TicketsStepDefs {
         assertEquals(destination, selectedAirports.get(1), "Destination airports do not match!");
     }
 
-    @Then("selected seat appears on the Flight Details Page")
-    public void check_selected_seat() {
-        assertEquals(seatId, flightDetailsPage.getSelectedSeat(), "Selected seats di bit natch!");
+    @Then("passenger name is shown")
+    public void check_passenger_name() {
+        Assertions.assertEquals(personalInfo.get("first_name"), flightDetailsPage.getPassengerName(), "Wrong passenger name!");
     }
 
-    //TODO: Can we do this with a getter? or do we need to use a step in .feature and pass value into variable?
-    //TODO: Side question, will we work with "Actions" class?
+    @Then("selected seat appears on the Flight Details Page")
+    public void check_selected_seat() {
+        assertEquals(seatId, flightDetailsPage.getSelectedSeat(), "Selected seats do not match!");
+    }
+
     @Then("flight confirmation message appears")
     public void check_confirmation_message() {
-        Assertions.assertEquals(flightConfirmationPage.getEXPECTED_MESSAGE(),
-                flightConfirmationPage.getConfirmationMessage(), "Confirmation messages do not match!");
+        Assertions.assertTrue(flightConfirmationPage.isConfirmationMessageCorrect());
     }
 }

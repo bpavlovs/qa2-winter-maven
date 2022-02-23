@@ -22,6 +22,7 @@ public class FlightDetailsPage {
     private final By FINAL_BOOK_BUTTON = By.id("book3");
     private final By FLIGHT_SEATS = By.xpath(".//div[@class = 'seat']");
     private final By SELECTED_SEAT = By.xpath(".//div[@class = 'line']");
+    private final By PASSENGER_NAME = By.xpath(".//div[@id = 'response']/span");
 
     private BaseFunctions baseFunctions;
 
@@ -40,24 +41,26 @@ public class FlightDetailsPage {
         return result;
     }
 
-    //TODO: Can we use "replace" here?
     public int getSelectedSeat() {
-        String seatId = baseFunctions.findElement(SELECTED_SEAT).getText().replace("Your seat is: ", "");
-        return Integer.parseInt(seatId);
+        return Integer.parseInt(baseFunctions.findElement(SELECTED_SEAT).getText().split(": ")[1]);
     }
 
     public void fillFlightDetailsForm(Map<String, String> params) {
         baseFunctions.type(NAME_INPUT, params.get("first_name"));
         baseFunctions.type(SURNAME_INPUT, params.get("last_name"));
         baseFunctions.type(DISCOUNT_INPUT, params.get("discount"));
-        baseFunctions.type(ADULT_COUNT_INPUT, params.get("adult_count"));
-        baseFunctions.type(KID_COUNT_INPUT, params.get("kid_count"));
-        baseFunctions.type(BAG_COUNT_INPUT, params.get("bag_count"));
+        baseFunctions.type(ADULT_COUNT_INPUT, Integer.parseInt(params.get("adult_count")));
+        baseFunctions.type(KID_COUNT_INPUT, Integer.parseInt(params.get("kid_count")));
+        baseFunctions.type(BAG_COUNT_INPUT, Integer.parseInt(params.get("bag_count")));
         baseFunctions.selectByVisibleText(FLIGHT_SELECT, params.get("flight_date"));
     }
 
-    public void pressGetPriceButton() {
+    public void submitForm() {
         baseFunctions.click(GET_PRICE_BUTTON);
+    }
+
+    public String getPassengerName() {
+        return baseFunctions.findElement(PASSENGER_NAME).getText().replace("!", "");
     }
 
     public void pressBookButton() {
@@ -68,13 +71,12 @@ public class FlightDetailsPage {
         baseFunctions.click(FINAL_BOOK_BUTTON);
     }
 
-    //TODO: Corrected assertion logic; Does not work due to missed seats - was that the intention?
     public void pressSeatButton(int seatId) {
-        List<WebElement> seats = baseFunctions.findElements(FLIGHT_SEATS);
-        WebElement seat = seats.get(seatId - 1);
-        Assertions.assertTrue(seats.contains(seat));
-        seat.click();
+        for (WebElement we : baseFunctions.findElements(FLIGHT_SEATS)){
+            if (Integer.parseInt(we.getText()) == seatId) {
+                we.click();
+                break;
+            }
+        }
     }
-
-
 }

@@ -16,7 +16,7 @@ public class FlightConfirmationPage {
         return baseFunctions.findElement(CONFIRMATION_MESSAGE).getText();
     }
 
-    public String getEXPECTED_MESSAGE() {
-        return EXPECTED_MESSAGE;
+    public boolean isConfirmationMessageCorrect() {
+        return (baseFunctions.findElement(CONFIRMATION_MESSAGE).getText().equals(EXPECTED_MESSAGE));
     }
 }

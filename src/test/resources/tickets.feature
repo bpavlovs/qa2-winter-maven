@@ -1,5 +1,8 @@
 Feature: Ticket Booking System
 
+
+  #http://www.qaguru.lv:8089/tickets/getReservations.php
+
   Scenario: API Reservation Check
     Given airports "RIX" and "SVO"
 
@@ -26,9 +29,11 @@ Feature: Ticket Booking System
 
     And pressing Get Price button
 
-    And pressing Book! button
+    Then passenger name is shown
 
-    When pressing seat number button
+    When pressing Book! button
+
+    And pressing seat number button
 
     Then selected seat appears on the Flight Details Page
 
