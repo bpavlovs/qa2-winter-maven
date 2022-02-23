@@ -3,7 +3,6 @@ package homework.delfipo.model;
 import org.openqa.selenium.WebElement;
 
 public class Article {
-
     private String title;
     private int commentCount;
 

@@ -3,7 +3,6 @@ package homework.delfipo.pages;
 import org.openqa.selenium.By;
 
 public class CommentsPage {
-
     private final By ARTICLE_TITLE = By.xpath(".//h1[@class='article-title']");
     private final By COMMENT = By.xpath(".//div[@class='comment-body']");
     private final By MORE_COMMENTS_BUTTON = By.id("btnLoadmore");
@@ -17,7 +16,7 @@ public class CommentsPage {
     public int getCommentCount() {
         int extraComments;
 
-        if (baseFunctions.findElements(MORE_COMMENTS_BUTTON).isEmpty()){
+        if (baseFunctions.findElements(MORE_COMMENTS_BUTTON).isEmpty()) {
             extraComments = 0;
         } else {
             String[] commentButton = baseFunctions.findElement(MORE_COMMENTS_BUTTON).getText().split(" ");

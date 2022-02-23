@@ -26,13 +26,13 @@ public class ArticleTests {
         homePage.openArticlePage(ARTICLE_NUMBER);
         ArticlePage articlePage = new ArticlePage(baseFunctions);
 
-        Assertions.assertEquals(article.getCommentCount(), articlePage.getCommentCount(), "Comment counts do not match!");
-        Assertions.assertEquals(article.getTitle(), articlePage.getArticleTitle(), "Titles do not match!");
+        Assertions.assertEquals(article.getCommentCount(), articlePage.getCommentCount(), "Comment counts on Home and Article pages do not match!");
+        Assertions.assertEquals(article.getTitle(), articlePage.getArticleTitle(), "Article titles on Home and Article pages do not match!");
 
         articlePage.openCommentsPage();
         CommentsPage commentsPage = new CommentsPage(baseFunctions);
 
-        Assertions.assertEquals(article.getTitle(), commentsPage.getArticleTitle(), "Titles do not match!");
-        Assertions.assertEquals(article.getCommentCount(), commentsPage.getCommentCount(), "Comment counts do not match!");
+        Assertions.assertEquals(article.getTitle(), commentsPage.getArticleTitle(), "Article titles on Home and Comment pages do not match!");
+        Assertions.assertEquals(article.getCommentCount(), commentsPage.getCommentCount(), "Comment counts on Article and Comment pages do not match!");
     }
 }

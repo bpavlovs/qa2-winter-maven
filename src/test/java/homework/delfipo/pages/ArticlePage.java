@@ -3,12 +3,10 @@ package homework.delfipo.pages;
 import org.openqa.selenium.By;
 
 public class ArticlePage {
-
     private BaseFunctions baseFunctions;
     private final By ARTICLE_TITLE = By.xpath(".//h1[contains(@class, '30 d-inline')]");
     private final By COMMENT_COUNTER = By.xpath(".//a[contains(@class, 'd-print')]");
     private final By COMMENT_PAGE_BUTTON = By.xpath(".//a[contains(@class, 'btn btn-primary')]");
-    private final By AD_CLOSE_BUTTON = By.id("closeButton");
 
     public ArticlePage(BaseFunctions baseFunctions) {
         this.baseFunctions = baseFunctions;
