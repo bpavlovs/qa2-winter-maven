@@ -7,7 +7,6 @@ import homework.ticketbooking.requesters.ReservationRequester;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
 import java.util.Map;
@@ -104,7 +103,7 @@ public class TicketsStepDefs {
 
     @Then("passenger name is shown")
     public void check_passenger_name() {
-        Assertions.assertEquals(givenReservation.getName(), flightDetailsPage.getPassengerName(), "Wrong passenger name!");
+        assertEquals(givenReservation.getName(), flightDetailsPage.getPassengerName(), "Wrong passenger name!");
     }
 
     @Then("selected seat appears on the Flight Details Page")
@@ -114,7 +113,7 @@ public class TicketsStepDefs {
 
     @Then("flight confirmation message appears")
     public void check_confirmation_message() {
-        Assertions.assertTrue(flightConfirmationPage.isConfirmationMessageCorrect());
+        assertTrue(flightConfirmationPage.isConfirmationMessageCorrect());
     }
 
     @Then("reservation is present in the list with correct data")
@@ -128,12 +127,12 @@ public class TicketsStepDefs {
             }
         }
 
-        Assertions.assertNotNull(actualReservation, "There is no such reservation");
-        Assertions.assertEquals(givenReservation.getSurname(), actualReservation.getSurname(), "Surnames do not match");
-        Assertions.assertEquals(givenReservation.getDiscount(), actualReservation.getDiscount(), "Discounts do not match");
-        Assertions.assertEquals(givenReservation.getAdultCount(), actualReservation.getAdultCount(), "Adult counts do not match");
-        Assertions.assertEquals(givenReservation.getChildren(), actualReservation.getChildren(), "Children counts do not match");
-        Assertions.assertEquals(givenReservation.getBagCount(), actualReservation.getBagCount(), "Bag counts do not match");
-        Assertions.assertEquals(givenReservation.getFlightDay(), actualReservation.getFlightDay(), "Flight days do not match");
+        assertNotNull(actualReservation, "There is no such reservation");
+        assertEquals(givenReservation.getSurname(), actualReservation.getSurname(), "Surnames do not match");
+        assertEquals(givenReservation.getDiscount(), actualReservation.getDiscount(), "Discounts do not match");
+        assertEquals(givenReservation.getAdultCount(), actualReservation.getAdultCount(), "Adult counts do not match");
+        assertEquals(givenReservation.getChildren(), actualReservation.getChildren(), "Children counts do not match");
+        assertEquals(givenReservation.getBagCount(), actualReservation.getBagCount(), "Bag counts do not match");
+        assertEquals(givenReservation.getFlightDay(), actualReservation.getFlightDay(), "Flight days do not match");
     }
 }
