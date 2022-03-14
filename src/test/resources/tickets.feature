@@ -1,6 +1,5 @@
 Feature: Ticket Booking System
 
-
   #http://www.qaguru.lv:8089/tickets/getReservations.php
 
   Scenario: API Reservation Check
@@ -40,5 +39,9 @@ Feature: Ticket Booking System
     When pressing final Book! button
 
     Then flight confirmation message appears
+
+    When we are requesting all reservations
+
+    Then reservation is present in the list with correct data
 
 

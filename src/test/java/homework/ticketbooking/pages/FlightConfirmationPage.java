@@ -12,10 +12,6 @@ public class FlightConfirmationPage {
         this.baseFunctions = baseFunctions;
     }
 
-    public String getConfirmationMessage() {
-        return baseFunctions.findElement(CONFIRMATION_MESSAGE).getText();
-    }
-
     public boolean isConfirmationMessageCorrect() {
         return (baseFunctions.findElement(CONFIRMATION_MESSAGE).getText().equals(EXPECTED_MESSAGE));
     }

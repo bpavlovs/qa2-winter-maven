@@ -1,25 +1,26 @@
 package homework.ticketbooking.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.swing.*;
 import java.time.Duration;
 import java.util.List;
 
 public class BaseFunctions {
     private WebDriver browser;
     private WebDriverWait wait;
-    private Actions actions;
+
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
     public BaseFunctions() {
+        LOGGER.info("Starting Web Browser");
         System.setProperty("webdriver.chrome.driver", "c://chromedriver.exe");
         browser = new ChromeDriver();
         browser.manage().window().maximize();
@@ -27,6 +28,7 @@ public class BaseFunctions {
     }
 
     public void openUrl(String url) {
+        LOGGER.info("Open page by: " + url);
         if (!url.startsWith("https://") && !url.startsWith("http://")) {
             url = "http://" + url;
         }
@@ -34,6 +36,7 @@ public class BaseFunctions {
     }
 
     public void click(By locator) {
+        LOGGER.info("Clicking on element");
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
@@ -57,11 +60,13 @@ public class BaseFunctions {
     }
 
     public void select(By locator, String value) {
+        LOGGER.info("Selecting " + value + " from dropdown list");
         Select select = new Select(findElement(locator));
         select.selectByValue(value);
     }
 
     public void selectByVisibleText(By locator, String text) {
+        LOGGER.info("Selecting " + text + " from dropdown list");
         Select select = new Select(findElement(locator));
         select.selectByVisibleText(text);
     }
@@ -73,6 +78,10 @@ public class BaseFunctions {
     }
     public void type(By locator, int text) {
         type(locator, String.valueOf(text));
+    }
+
+    public void waitUntilElementsCountAtLeast(By locator, int count) {
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, count));
     }
 
 }

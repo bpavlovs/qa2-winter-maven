@@ -1,14 +1,15 @@
 package homework.ticketbooking.pages;
 
-import org.junit.jupiter.api.Assertions;
+import homework.ticketbooking.model.Reservation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class FlightDetailsPage {
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
     private final By SELECTED_AIRPORTS = By.xpath(".//span[@class = 'bTxt']");
     private final By NAME_INPUT = By.id("name");
     private final By SURNAME_INPUT = By.id("surname");
@@ -31,6 +32,7 @@ public class FlightDetailsPage {
     }
 
     public List<String> getSelectedAirports() {
+        LOGGER.info("Getting selected airports");
         List<WebElement> selectedAirports = baseFunctions.findElements(SELECTED_AIRPORTS);
 
         List<String> result = new ArrayList<>();
@@ -42,20 +44,23 @@ public class FlightDetailsPage {
     }
 
     public int getSelectedSeat() {
+        LOGGER.info("Getting selected seats");
         return Integer.parseInt(baseFunctions.findElement(SELECTED_SEAT).getText().split(": ")[1]);
     }
 
-    public void fillFlightDetailsForm(Map<String, String> params) {
-        baseFunctions.type(NAME_INPUT, params.get("first_name"));
-        baseFunctions.type(SURNAME_INPUT, params.get("last_name"));
-        baseFunctions.type(DISCOUNT_INPUT, params.get("discount"));
-        baseFunctions.type(ADULT_COUNT_INPUT, Integer.parseInt(params.get("adult_count")));
-        baseFunctions.type(KID_COUNT_INPUT, Integer.parseInt(params.get("kid_count")));
-        baseFunctions.type(BAG_COUNT_INPUT, Integer.parseInt(params.get("bag_count")));
-        baseFunctions.selectByVisibleText(FLIGHT_SELECT, params.get("flight_date"));
+    public void fillFlightDetailsForm(Reservation reservation) {
+        LOGGER.info("Filling in flight details form");
+        baseFunctions.type(NAME_INPUT, reservation.getName());
+        baseFunctions.type(SURNAME_INPUT, reservation.getSurname());
+        baseFunctions.type(DISCOUNT_INPUT, reservation.getDiscount());
+        baseFunctions.type(ADULT_COUNT_INPUT, reservation.getAdultCount());
+        baseFunctions.type(KID_COUNT_INPUT, reservation.getChildren());
+        baseFunctions.type(BAG_COUNT_INPUT, reservation.getBagCount());
+        baseFunctions.selectByVisibleText(FLIGHT_SELECT, reservation.getFlightDate());
     }
 
     public void submitForm() {
+        LOGGER.info("Submitting the form");
         baseFunctions.click(GET_PRICE_BUTTON);
     }
 
@@ -64,6 +69,7 @@ public class FlightDetailsPage {
     }
 
     public void pressBookButton() {
+        LOGGER.info("Booking tickets");
         baseFunctions.click(BOOK_BUTTON);
     }
 
@@ -72,6 +78,7 @@ public class FlightDetailsPage {
     }
 
     public void pressSeatButton(int seatId) {
+        baseFunctions.waitUntilElementsCountAtLeast(FLIGHT_SEATS, 10);
         for (WebElement we : baseFunctions.findElements(FLIGHT_SEATS)){
             if (Integer.parseInt(we.getText()) == seatId) {
                 we.click();

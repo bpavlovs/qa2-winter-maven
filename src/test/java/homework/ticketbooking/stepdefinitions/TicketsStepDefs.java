@@ -1,6 +1,9 @@
 package homework.ticketbooking.stepdefinitions;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import homework.ticketbooking.model.Reservation;
 import homework.ticketbooking.pages.*;
+import homework.ticketbooking.requesters.ReservationRequester;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,30 +15,34 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TicketsStepDefs {
-    private String departure;
-    private String destination;
-    private int seatId;
-    private Map<String, String> personalInfo;
+    private List<Reservation> response;
 
     private BaseFunctions baseFunctions = new BaseFunctions();
+    private Reservation givenReservation = new Reservation();
     private HomePage homePage;
     private FlightDetailsPage flightDetailsPage;
     private FlightConfirmationPage flightConfirmationPage;
 
     @Given("airports {string} and {string}")
     public void set_airports(String departure, String destination) {
-        this.departure = departure;
-        this.destination = destination;
+        givenReservation.setFrom(departure);
+        givenReservation.setTo(destination);
     }
 
     @Given("personal info is")
     public void set_personal_info(Map<String, String> params) {
-        personalInfo = params;
+        givenReservation.setName(params.get("first_name"));
+        givenReservation.setSurname(params.get("last_name"));
+        givenReservation.setDiscount(params.get("discount"));
+        givenReservation.setAdultCount(Integer.parseInt(params.get("adult_count")));
+        givenReservation.setChildren(Integer.parseInt(params.get("kid_count")));
+        givenReservation.setBagCount(Integer.parseInt(params.get("bag_count")));
+        givenReservation.setFlightDate(params.get("flight_date"));
     }
 
     @Given("seat id is {int}")
     public void set_seat_id(int seatId) {
-        this.seatId = seatId;
+        givenReservation.setSeat(seatId);
     }
 
     @Given("home page open")
@@ -46,7 +53,7 @@ public class TicketsStepDefs {
 
     @When("selecting airports")
     public void select_airports() {
-        homePage.selectAirports(departure, destination);
+        homePage.selectAirports(givenReservation.getFrom(), givenReservation.getTo());
     }
 
     @When("pressing GoGoGo button")
@@ -57,7 +64,7 @@ public class TicketsStepDefs {
 
     @When("filing in flight details form")
     public void fill_personal_info() {
-        flightDetailsPage.fillFlightDetailsForm(personalInfo);
+        flightDetailsPage.fillFlightDetailsForm(givenReservation);
     }
 
     @When("pressing Get Price button")
@@ -72,7 +79,7 @@ public class TicketsStepDefs {
 
     @When("pressing seat number button")
     public void press_seat_button() {
-        flightDetailsPage.pressSeatButton(seatId);
+        flightDetailsPage.pressSeatButton(givenReservation.getSeat());
     }
 
     @When("pressing final Book! button")
@@ -81,26 +88,52 @@ public class TicketsStepDefs {
         flightConfirmationPage = new FlightConfirmationPage(baseFunctions);
     }
 
+    @When("we are requesting all reservations")
+    public void request_reservation() throws JsonProcessingException {
+        ReservationRequester requester = new ReservationRequester();
+        response = requester.requestReservations();
+    }
+
     @Then("selected airports appear on Flight Details Page")
     public void check_selected_airports() {
         List<String> selectedAirports = flightDetailsPage.getSelectedAirports();
 
-        assertEquals(departure, selectedAirports.get(0), "Departure airports do not match!");
-        assertEquals(destination, selectedAirports.get(1), "Destination airports do not match!");
+        assertEquals(givenReservation.getFrom(), selectedAirports.get(0), "Departure airports do not match!");
+        assertEquals(givenReservation.getTo(), selectedAirports.get(1), "Destination airports do not match!");
     }
 
     @Then("passenger name is shown")
     public void check_passenger_name() {
-        Assertions.assertEquals(personalInfo.get("first_name"), flightDetailsPage.getPassengerName(), "Wrong passenger name!");
+        Assertions.assertEquals(givenReservation.getName(), flightDetailsPage.getPassengerName(), "Wrong passenger name!");
     }
 
     @Then("selected seat appears on the Flight Details Page")
     public void check_selected_seat() {
-        assertEquals(seatId, flightDetailsPage.getSelectedSeat(), "Selected seats do not match!");
+        assertEquals(givenReservation.getSeat(), flightDetailsPage.getSelectedSeat(), "Selected seats do not match!");
     }
 
     @Then("flight confirmation message appears")
     public void check_confirmation_message() {
         Assertions.assertTrue(flightConfirmationPage.isConfirmationMessageCorrect());
+    }
+
+    @Then("reservation is present in the list with correct data")
+    public void check_current_reservation() {
+
+        Reservation actualReservation = null;
+        for (Reservation r : response) {
+            if (r.getName().equals(givenReservation.getName())) {
+                actualReservation = r;
+                break;
+            }
+        }
+
+        Assertions.assertNotNull(actualReservation, "There is no such reservation");
+        Assertions.assertEquals(givenReservation.getSurname(), actualReservation.getSurname(), "Surnames do not match");
+        Assertions.assertEquals(givenReservation.getDiscount(), actualReservation.getDiscount(), "Discounts do not match");
+        Assertions.assertEquals(givenReservation.getAdultCount(), actualReservation.getAdultCount(), "Adult counts do not match");
+        Assertions.assertEquals(givenReservation.getChildren(), actualReservation.getChildren(), "Children counts do not match");
+        Assertions.assertEquals(givenReservation.getBagCount(), actualReservation.getBagCount(), "Bag counts do not match");
+        Assertions.assertEquals(givenReservation.getFlightDay(), actualReservation.getFlightDay(), "Flight days do not match");
     }
 }
