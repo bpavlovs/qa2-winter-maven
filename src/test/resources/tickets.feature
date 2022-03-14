@@ -1,7 +1,5 @@
 Feature: Ticket Booking System
 
-  #http://www.qaguru.lv:8089/tickets/getReservations.php
-
   Scenario: API Reservation Check
     Given airports "RIX" and "SVO"
 
